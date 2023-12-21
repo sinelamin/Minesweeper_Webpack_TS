@@ -1,4 +1,11 @@
 import { createInterface } from "../components/interface";
+import { createPlayingArr } from "../components/playingArr";
+import { createPlayingField } from "../components/playingField";
+import { createPlayingCell } from "../components/playingCell";
+import { createMine, addMine } from "../components/mines";
+import { setNumberMines } from "../components/setNumberMines";
+import { openEmptyCells } from "../components/openEmptyCells";
+import { openCell } from "../components/openCell";
 
 createInterface();
 
@@ -9,65 +16,50 @@ if (canvas) {
 
   if (ctx) {
     let playingField: number[][] = [];
+    let playingCell: number[][] = [];
 
     createPlayingArr(playingField);
+    createPlayingArr(playingCell);
+
     createPlayingField(ctx, playingField);
 
-    console.log(playingField);
+    createMine(playingField);
 
-    createPlayingCell(ctx, playingField);
+    setNumberMines(ctx, playingField)
+
+    addMine(ctx, playingField);
+
+    createPlayingCell(ctx, playingCell);
 
     canvas.addEventListener('click', (e) => {
-      console.log('clientX ', e.offsetX);
-      console.log('pageX ', e.offsetY);
       let x = Math.floor(e.offsetX / 40);
       let y = Math.floor(e.offsetY / 40);
-      console.log('X ', x);
-      console.log('Y', y);
 
-      playingField[x][y] = 10;
-      console.log(playingField);
+      playingCell[x][y] = 10;
+
+      if (playingField[x][y] === 11) {
+        openEmptyCells(playingField, playingCell, x, y);
+      }
+
+
+      openCell(ctx, playingField, playingCell);
+      console.log('playingCell', playingCell);
     })
+
+    console.log('playingField', playingField);
+    console.log('playingCell', playingCell);
   }
 }
 
-function createPlayingField(context: CanvasRenderingContext2D | null, arr: number[][]): void {
-  if (context) {
-    for (let i = 0; i < arr.length; i += 1) {
-      for (let j = 0; j < arr.length; j += 1) {
-        if (arr[i][j] === 0) {
-          context.beginPath();
-          context.fillStyle = "#b3b3b3";
-          context.fillRect(i * 40, j * 40, 40, 40);
-          context.closePath();
-        }
-      }
-    }
-  }
-}
 
-function createPlayingCell(context: CanvasRenderingContext2D | null, arr: number[][]): void {
-  if (context) {
-    for (let i = 0; i < arr.length; i += 1) {
-      for (let j = 0; j < arr.length; j += 1) {
-        if (!arr[i][j]) {
-          context.beginPath();
-          context.fillStyle = "#b3b3b3";
-          context.strokeStyle = '#fff';
-          context.fillRect(i * 40, j * 40, 40, 40);
-          context.strokeRect(i * 40, j * 40, 40, 40);
-          context.closePath();
-        }
-      }
-    }
-  }
-}
-
-function createPlayingArr(arr: number[][]): void {
-  for (let i = 0; i < 10; i += 1) {
-    arr[i] = [];
-    for (let j = 0; j < 10; j += 1) {
-      arr[i][j] = 0;
-    }
-  }
-}
+//      (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y)
+// (X) [01, 09, 09, 02, 01, 01, 11, 11, 11, 11]
+// (X) [01, 02, 02, 02, 09, 02, 01, 01, 11, 11]
+// (X) [11, 11, 11, 01, 01, 02, 09, 01, 11, 11]
+// (X) [11, 11, 11, 11, 11, 01, 01, 01, 01, 01]
+// (X) [01, 01, 11, 11, 11, 11, 11, 01, 02, 09]
+// (X) [09, 01, 11, 11, 11, 11, 11, 01, 09, 02]
+// (X) [01, 01, 11, 11, 11, 01, 01, 02, 01, 01]
+// (X) [11, 11, 11, 01, 01, 02, 09, 01, 11, 11]
+// (X) [11, 11, 11, 02, 09, 03, 01, 01, 11, 11]
+// (X) [11, 11, 11, 02, 09, 02, 11, 11, 11, 11]
