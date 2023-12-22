@@ -20,8 +20,8 @@ export function addMine(context: CanvasRenderingContext2D | null, arrField: numb
       for (let j = 0; j < arrField.length; j += 1) {
         if (arrField[i][j] === 9) {
           context.beginPath();
-          context.fillStyle = "#b3b3b3";
-          context.fillRect(i * 40, j * 40, 40, 40);
+          context.fillStyle = "#9c9c9c";
+          context.fillRect((i * 40) + 2, (j * 40) + 2, 38, 38);
           context.closePath();
 
           context.beginPath();
