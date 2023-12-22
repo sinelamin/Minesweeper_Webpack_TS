@@ -6,10 +6,14 @@ import { createMine, addMine } from "../components/mines";
 import { setNumberMines } from "../components/setNumberMines";
 import { openEmptyCells } from "../components/openEmptyCells";
 import { openCell } from "../components/openCell";
+import { changeTimer } from "../components/changeTimer";
 
 createInterface();
 
 const canvas: HTMLCanvasElement | null = document.querySelector('.canvas');
+const gameTimer = document.querySelector('.interface-two__timer');
+
+console.log(gameTimer);
 
 if (canvas) {
   const ctx = canvas.getContext('2d');
@@ -44,6 +48,8 @@ if (canvas) {
 
       openCell(ctx, playingField, playingCell);
       console.log('playingCell', playingCell);
+
+      changeTimer(gameTimer);
     })
 
     console.log('playingField', playingField);
