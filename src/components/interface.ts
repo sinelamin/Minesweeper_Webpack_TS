@@ -19,13 +19,15 @@ export function createInterface() {
 
       <div class="interface">
         <div class="interface-top">
-          <ul class="interface-list">
-            <li class="interface-list__item">010</li>
-            <li class="interface-list__item">
-              <div class="smile">&#128578;</div>
-            </li>
-            <li class="interface-list__item">000</li>
-          </ul>
+          <div class="interface-inform">
+            <div class="interface-one">
+              <div class="interface-one__flags">010</div>
+              <div class="interface-one__smile">&#128578;</div>
+            </div>
+            <div class="interface-two">
+              <div class="interface-two__timer">000</div>
+            </div>
+          </div>
         </div>
         <div class="interface-body">
           <canvas class="canvas" width="400" height="400"></canvas>
