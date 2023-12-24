@@ -1,12 +1,12 @@
 const colorOfNumbers = [
-  "#0000FF", // синяя
-  "#008000", // зелёная
-  "#FF0000", // красная
-  "#00008B", // тёмно-синяя
-  "#A52A2A", // коричневая
-  "#40E0D0", // бирюзовая
-  "#000000", // чёрная
-  "#FFFFFF"  // белая
+  '#0000FF', // синяя
+  '#008000', // зелёная
+  '#FF0000', // красная
+  '#00008B', // тёмно-синяя
+  '#A52A2A', // коричневая
+  '#40E0D0', // бирюзовая
+  '#000000', // чёрная
+  '#FFFFFF'  // белая
 ];
 
 export function setNumberMines(context: CanvasRenderingContext2D | null, arrField: number[][]): void {
@@ -17,7 +17,7 @@ export function setNumberMines(context: CanvasRenderingContext2D | null, arrFiel
           if (checkMine(arrField, i, j)) {
             context.beginPath();
             context.beginPath();
-            context.fillStyle = "#9c9c9c";
+            context.fillStyle = '#9c9c9c';
             context.fillRect((i * 40) + 2, (j * 40) + 2, 38, 38);
             context.closePath();
 
