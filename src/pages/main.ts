@@ -1,19 +1,15 @@
 import { createInterface } from "../components/interface";
+import { clickToCanvas } from "../components/clickToCanvas";
 import { createPlayingArr } from "../components/playingArr";
 import { createPlayingField } from "../components/playingField";
 import { createPlayingCell } from "../components/playingCell";
-import { createMine, addMine } from "../components/mines";
+import { createMineList, addMine } from "../components/mines";
 import { setNumberMines } from "../components/setNumberMines";
-import { openEmptyCells } from "../components/openEmptyCells";
-import { openCell } from "../components/openCell";
-import { changeTimer } from "../components/changeTimer";
 
 createInterface();
 
 const canvas: HTMLCanvasElement | null = document.querySelector('.canvas');
 const gameTimer = document.querySelector('.interface-two__timer');
-
-console.log(gameTimer);
 
 if (canvas) {
   const ctx = canvas.getContext('2d');
@@ -27,7 +23,7 @@ if (canvas) {
 
     createPlayingField(ctx, playingField);
 
-    createMine(playingField);
+    createMineList(playingField);
 
     setNumberMines(ctx, playingField)
 
@@ -35,28 +31,22 @@ if (canvas) {
 
     createPlayingCell(ctx, playingCell);
 
-    canvas.addEventListener('click', (e) => {
-      let x = Math.floor(e.offsetX / 40);
-      let y = Math.floor(e.offsetY / 40);
-
-      playingCell[x][y] = 10;
-
-      if (playingField[x][y] === 11) {
-        openEmptyCells(playingField, playingCell, x, y);
+    const clickToHandler = (event: MouseEvent) => {
+      let x = Math.floor(event.offsetX / 40);
+      let y = Math.floor(event.offsetY / 40);
+      let boom = false;
+      
+      if (playingField[x][y] === 9) {
+        canvas.removeEventListener('click', clickToHandler);
+        boom = true;
       }
 
+      clickToCanvas(event, ctx, playingField, playingCell, gameTimer, boom);
+    }
 
-      openCell(ctx, playingField, playingCell);
-      console.log('playingCell', playingCell);
-
-      changeTimer(gameTimer);
-    })
-
-    console.log('playingField', playingField);
-    console.log('playingCell', playingCell);
+    canvas.addEventListener('click', clickToHandler);
   }
 }
-
 
 //      (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y)
 // (X) [01, 09, 09, 02, 01, 01, 11, 11, 11, 11]
