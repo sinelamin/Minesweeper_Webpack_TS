@@ -2,6 +2,7 @@ import { createPlayingField } from "./playingField";
 import { createPlayingCell } from "./playingCell";
 import { addMine } from "./mines";
 import { setNumberMines } from "./setNumberMines";
+import { upGameStepCounter } from "./gameStepCounter";
 
 export function openCell(
   context: CanvasRenderingContext2D | null,
@@ -14,5 +15,6 @@ export function openCell(
     addMine(context, arrField);
     setNumberMines(context, arrField);
     createPlayingCell(context, arrCell);
+    upGameStepCounter();
   }
 }
