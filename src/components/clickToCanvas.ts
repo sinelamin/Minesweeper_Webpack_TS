@@ -1,20 +1,17 @@
 import { openCell } from "./openCell";
 import { openEmptyCells } from "./openEmptyCells";
-import { mineConstructor } from "./mines";
 import { mineExplosion } from "./mineExplosion";
 import { timerId, startTimer, stopTimer } from "./changeTimer";
-
-let gameStepCounter = 0;
-
+import { gameStepCounter, resetGameStepCounter } from "./gameStepCounter";
 
 export function clickToCanvas(
   event: MouseEvent,
   context: CanvasRenderingContext2D | null,
+  btnStartNewGame: Element | null,
   arrField: number[][],
   arrCell: number[][],
   gameTimer: Element | null,
-  boom: boolean
-  ): void {
+): void {
   let x = Math.floor(event.offsetX / 40);
   let y = Math.floor(event.offsetY / 40);
 
@@ -24,25 +21,15 @@ export function clickToCanvas(
     openEmptyCells(arrField, arrCell, x, y);
   }
 
+  if (!gameStepCounter) {
+    startTimer(gameTimer);
+  }
+
   openCell(context, arrField, arrCell);
 
   if (arrField[x][y] === 9) {
-    mineExplosion(context, arrField, arrCell, x, y);
-
-    openCell(context, arrField, arrCell);
-
-    mineConstructor(context, x, y, 'red');
-  }
-
-  if (gameTimer) {
-    if (!gameStepCounter) {
-      startTimer(gameTimer);
-    }
-
-    if (boom) {
-      stopTimer(timerId);
-    }
-
-    gameStepCounter += 1;
+    mineExplosion(context, arrField, arrCell, x, y, btnStartNewGame);
+    stopTimer(timerId);
+    resetGameStepCounter();
   }
 }

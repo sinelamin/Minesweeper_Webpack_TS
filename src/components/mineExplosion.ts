@@ -1,10 +1,15 @@
+import { openCell } from "./openCell";
+import { mineConstructor } from "./mines";
+import { deadSmile } from "./changeSmile";
+
 export function mineExplosion(
   context: CanvasRenderingContext2D | null,
   arrField: number[][],
   arrCell: number[][],
   x: number,
-  y: number
-  ): void {
+  y: number,
+  btnStartNewGame: Element | null
+): void {
   if (context) {
     if (arrField[x][y] === 9) {
       for (let k = 0; k < 10; k += 1) {
@@ -16,4 +21,8 @@ export function mineExplosion(
       }
     }
   }
+
+  openCell(context, arrField, arrCell);
+  mineConstructor(context, x, y, 'red');
+  deadSmile(btnStartNewGame);
 }

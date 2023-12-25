@@ -1,15 +1,15 @@
 import { createInterface } from "../components/interface";
+import { newGame } from "../components/newGame";
+import { timerId, stopTimer } from "../components/changeTimer";
+import { resetGameStepCounter } from "../components/gameStepCounter";
+import { worriedSmile, happySmile } from "../components/changeSmile";
 import { clickToCanvas } from "../components/clickToCanvas";
-import { createPlayingArr } from "../components/playingArr";
-import { createPlayingField } from "../components/playingField";
-import { createPlayingCell } from "../components/playingCell";
-import { createMineList, addMine } from "../components/mines";
-import { setNumberMines } from "../components/setNumberMines";
 
 createInterface();
 
 const canvas: HTMLCanvasElement | null = document.querySelector('.canvas');
 const gameTimer = document.querySelector('.interface-two__timer');
+const btnStartNewGame = document.querySelector('.interface-one__smile');
 
 if (canvas) {
   const ctx = canvas.getContext('2d');
@@ -18,33 +18,47 @@ if (canvas) {
     let playingField: number[][] = [];
     let playingCell: number[][] = [];
 
-    createPlayingArr(playingField);
-    createPlayingArr(playingCell);
+    newGame(ctx, btnStartNewGame, playingField, playingCell);
 
-    createPlayingField(ctx, playingField);
+    const clickToWorriedSmile = () => {
+      worriedSmile(btnStartNewGame);
+    }
 
-    createMineList(playingField);
-
-    setNumberMines(ctx, playingField)
-
-    addMine(ctx, playingField);
-
-    createPlayingCell(ctx, playingCell);
+    const clickToHappySmile = () => {
+      happySmile(btnStartNewGame);
+    }
 
     const clickToHandler = (event: MouseEvent) => {
       let x = Math.floor(event.offsetX / 40);
       let y = Math.floor(event.offsetY / 40);
       let boom = false;
-      
+
       if (playingField[x][y] === 9) {
         canvas.removeEventListener('click', clickToHandler);
-        boom = true;
+        canvas.removeEventListener('mousedown', clickToWorriedSmile);
+        canvas.removeEventListener('mouseup', clickToHappySmile);
       }
 
-      clickToCanvas(event, ctx, playingField, playingCell, gameTimer, boom);
+      clickToCanvas(event, ctx, btnStartNewGame, playingField, playingCell, gameTimer);
     }
 
     canvas.addEventListener('click', clickToHandler);
+    canvas.addEventListener('mousedown', clickToWorriedSmile);
+    canvas.addEventListener('mouseup', clickToHappySmile);
+
+    if (btnStartNewGame && gameTimer) {
+      btnStartNewGame.addEventListener('click', () => {
+        resetGameStepCounter();
+        newGame(ctx, btnStartNewGame, playingField, playingCell);
+        stopTimer(timerId);
+
+        canvas.addEventListener('click', clickToHandler);
+        canvas.addEventListener('mousedown', clickToWorriedSmile);
+        canvas.addEventListener('mouseup', clickToHappySmile);
+
+        gameTimer.textContent = '000';
+      })
+    }
   }
 }
 
