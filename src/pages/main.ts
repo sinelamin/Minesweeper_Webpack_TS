@@ -31,7 +31,6 @@ if (canvas) {
     const clickToHandler = (event: MouseEvent) => {
       let x = Math.floor(event.offsetX / 40);
       let y = Math.floor(event.offsetY / 40);
-      let boom = false;
 
       if (playingField[x][y] === 9) {
         canvas.removeEventListener('click', clickToHandler);
