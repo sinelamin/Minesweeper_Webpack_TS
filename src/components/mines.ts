@@ -16,7 +16,7 @@ export function createMineList(arrField: number[][]): void {
 
 export function addMine(
   context: CanvasRenderingContext2D | null,
-  arrField: number[][]
+  arrField: number[][],
 ): void {
   if (context) {
     for (let i = 0; i < arrField.length; i += 1) {
@@ -38,7 +38,7 @@ export function mineConstructor(
   if (context) {
     context.beginPath();
     context.fillStyle = color;
-    context.fillRect((i * 40) + 2, (j * 40) + 2, 38, 38);
+    context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
     context.closePath();
 
     context.beginPath();
@@ -74,6 +74,24 @@ export function mineConstructor(
     context.strokeStyle = '#fff';
     context.arc((i * 40) + 17, (j * 40) + 18, 1, 0, Math.PI * 2);
     context.fill();
+    context.stroke();
+    context.closePath();
+  }
+}
+
+export function mineDeactive(
+  context: CanvasRenderingContext2D | null,
+  i: number,
+  j: number
+):void {
+  if (context) {
+    context.beginPath();
+    context.strokeStyle = 'red';
+    context.lineWidth = 1;
+    context.moveTo((i * 40) + 5, (j * 40) + 5);
+    context.lineTo((i * 40) + 35, (j * 40) + 35);
+    context.moveTo((i * 40) + 35, (j * 40) + 5);
+    context.lineTo((i * 40) + 5, (j * 40) + 35);
     context.stroke();
     context.closePath();
   }

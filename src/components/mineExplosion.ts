@@ -14,8 +14,12 @@ export function mineExplosion(
     if (arrField[x][y] === 9) {
       for (let k = 0; k < 10; k += 1) {
         for (let l = 0; l < 10; l += 1) {
-          if (arrField[k][l] === 9) {
+          if (arrField[k][l] === 9 && arrCell[k][l] !== 1) {
             arrCell[k][l] = 10;
+          }
+
+          if (arrField[k][l] === 9 && arrCell[k][l] === 1) {
+            arrCell[k][l] = 12;
           }
         }
       }

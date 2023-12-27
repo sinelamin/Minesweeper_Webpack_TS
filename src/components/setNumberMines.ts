@@ -18,7 +18,7 @@ export function setNumberMines(context: CanvasRenderingContext2D | null, arrFiel
             context.beginPath();
             context.beginPath();
             context.fillStyle = '#9c9c9c';
-            context.fillRect((i * 40) + 2, (j * 40) + 2, 38, 38);
+            context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
             context.closePath();
 
             context.font = '20px serif';
