@@ -4,17 +4,61 @@ export function addFlag(
   context: CanvasRenderingContext2D | null,
   arrCell: number[][],
   x: number,
-  y: number
+  y: number,
+  flags: Element | null
 ): void {
-  if (context) {
-
-    if (counterFlags > 0) {
-    }
+  if (counterFlags > 0 && flags) {
     counterFlags -= 1;
-    console.log('counterFlag', counterFlags);
+
+    flags.innerHTML = `${counterFlags}`.padStart(3, '0');
 
     arrCell[x][y] = 1;
 
+    createFlag(context, x, y);
+  }
+}
+
+export function removeFlag(
+  context: CanvasRenderingContext2D | null,
+  arrCell: number[][],
+  x: number,
+  y: number,
+  flags: Element | null
+): void {
+  if (context) {
+    if (counterFlags < 10 && flags) {
+      counterFlags += 1;
+
+      flags.innerHTML = `${counterFlags}`.padStart(3, '0');
+
+      arrCell[x][y] = 0;
+
+      context.beginPath();
+      context.fillStyle = '#8f8f8f';
+      context.strokeStyle = '#fff';
+      context.lineWidth = 2;
+      context.fillRect((x * 40) + 1, (y * 40) + 1, 38, 38);
+      context.strokeRect((x * 40) + 1, (y * 40) + 1, 38, 38);
+      context.closePath();
+    }
+  }
+}
+
+export function resetFlags(flags: Element | null) {
+  counterFlags = 10;
+
+  if (flags) {
+    flags.innerHTML = `${counterFlags}`.padStart(3, '0');
+  }
+}
+
+export function createFlag(
+  context: CanvasRenderingContext2D | null,
+  x: number,
+  y: number
+): void {
+
+  if (context) {
     context.beginPath();
     context.fillStyle = '#8f8f8f';
     context.strokeStyle = '#fff';
@@ -45,26 +89,6 @@ export function addFlag(
     context.fillStyle = 'red';
     context.fill();
     context.stroke();
-    context.closePath();
-  }
-}
-
-export function removeFlag(
-  context: CanvasRenderingContext2D | null,
-  arrCell: number[][],
-  x: number,
-  y: number
-): void {
-  if (context) {
-    console.log('removeFlag');
-    arrCell[x][y] = 0;
-
-    context.beginPath();
-    context.fillStyle = '#8f8f8f';
-    context.strokeStyle = '#fff';
-    context.lineWidth = 2;
-    context.fillRect((x * 40) + 1, (y * 40) + 1, 38, 38);
-    context.strokeRect((x * 40) + 1, (y * 40) + 1, 38, 38);
     context.closePath();
   }
 }

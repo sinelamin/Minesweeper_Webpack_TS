@@ -4,7 +4,7 @@ import { timerId, stopTimer } from "../components/changeTimer";
 import { resetGameStepCounter } from "../components/gameStepCounter";
 import { worriedSmile, happySmile } from "../components/changeSmile";
 import { clickToCanvas } from "../components/clickToCanvas";
-import { addFlag, removeFlag } from "../components/Flags";
+import { addFlag, removeFlag, resetFlags } from "../components/Flags";
 
 createInterface();
 
@@ -40,11 +40,9 @@ if (canvas) {
 
         if (playingCell[x][y] !== 10) {
           if (playingCell[x][y] !== 1) {
-            // addFlag(ctx, playingCell, x, y, flags);
-            addFlag(ctx, playingCell, x, y);
+            addFlag(ctx, playingCell, x, y, flags);
           } else {
-            // removeFlag(ctx, playingCell, x, y, flags);
-            removeFlag(ctx, playingCell, x, y);
+            removeFlag(ctx, playingCell, x, y, flags);
           }
         }
       }
@@ -58,9 +56,6 @@ if (canvas) {
 
         clickToCanvas(event, ctx, btnStartNewGame, playingField, playingCell, x, y, gameTimer);
       }
-
-      console.log('playingCell', playingCell);
-      console.log('playingField', playingField);
     }
 
     canvas.addEventListener('click', clickToHandler);
@@ -74,6 +69,7 @@ if (canvas) {
         resetGameStepCounter();
         newGame(ctx, btnStartNewGame, playingField, playingCell);
         stopTimer(timerId);
+        resetFlags(flags);
 
         canvas.addEventListener('click', clickToHandler);
         canvas.addEventListener('mousedown', clickToWorriedSmile);

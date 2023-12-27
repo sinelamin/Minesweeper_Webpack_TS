@@ -1,4 +1,5 @@
-import { addFlag, counterFlags } from "./Flags";
+import { createFlag } from "./Flags";
+import { mineConstructor, mineDeactive } from "./mines";
 
 export function createPlayingCell(context: CanvasRenderingContext2D | null, arrCell: number[][]): void {
   if (context) {
@@ -15,8 +16,12 @@ export function createPlayingCell(context: CanvasRenderingContext2D | null, arrC
         }
 
         if (arrCell[i][j] === 1) {
-          addFlag(context, arrCell, i, j);
-          console.log('addFlag work!');
+          createFlag(context, i, j);
+        }
+
+        if (arrCell[i][j] === 12) {
+          mineConstructor(context, i, j, '#9c9c9c');
+          mineDeactive(context, i, j);
         }
       }
     }
