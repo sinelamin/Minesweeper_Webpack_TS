@@ -38,7 +38,7 @@ export function mineConstructor(
   if (context) {
     context.beginPath();
     context.fillStyle = color;
-    context.fillRect((i * 40) + 2, (j * 40) + 2, 38, 38);
+    context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
     context.closePath();
 
     context.beginPath();
