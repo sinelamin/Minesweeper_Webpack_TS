@@ -1,15 +1,21 @@
 import { createInterface } from "../components/interface";
-import { createPlayingArr } from "../components/playingArr";
-import { createPlayingField } from "../components/playingField";
-import { createPlayingCell } from "../components/playingCell";
-import { createMine, addMine } from "../components/mines";
-import { setNumberMines } from "../components/setNumberMines";
-import { openEmptyCells } from "../components/openEmptyCells";
-import { openCell } from "../components/openCell";
+import { newGame } from "../components/newGame";
+import { timerId, stopTimer } from "../components/changeTimer";
+import { resetGameStepCounter } from "../components/gameStepCounter";
+import { worriedSmile, happySmile } from "../components/changeSmile";
+import { clickToCanvas } from "../components/clickToCanvas";
+import { addFlag, removeFlag, resetFlags } from "../components/Flags";
+import { checkOpenCell, removeWindowWin } from "../components/win";
 
-createInterface();
+const body = document.querySelector('body');
+
+
+createInterface(body);
 
 const canvas: HTMLCanvasElement | null = document.querySelector('.canvas');
+const gameTimer = document.querySelector('.interface-two__timer');
+const flags = document.querySelector('.interface-one__flags');
+const btnStartNewGame = document.querySelector('.interface-one__smile');
 
 if (canvas) {
   const ctx = canvas.getContext('2d');
@@ -18,39 +24,115 @@ if (canvas) {
     let playingField: number[][] = [];
     let playingCell: number[][] = [];
 
-    createPlayingArr(playingField);
-    createPlayingArr(playingCell);
+    newGame(ctx, btnStartNewGame, playingField, playingCell);
 
-    createPlayingField(ctx, playingField);
+    const clickToWorriedSmile = () => {
+      worriedSmile(btnStartNewGame);
+    }
 
-    createMine(playingField);
+    const clickToHappySmile = () => {
+      happySmile(btnStartNewGame);
+    }
 
-    setNumberMines(ctx, playingField)
+    const clickToHandler = (event: MouseEvent) => {
+      let x = Math.floor(event.offsetX / 40);
+      let y = Math.floor(event.offsetY / 40);
 
-    addMine(ctx, playingField);
+      if (event.type === 'contextmenu') {
+        event.preventDefault();
 
-    createPlayingCell(ctx, playingCell);
-
-    canvas.addEventListener('click', (e) => {
-      let x = Math.floor(e.offsetX / 40);
-      let y = Math.floor(e.offsetY / 40);
-
-      playingCell[x][y] = 10;
-
-      if (playingField[x][y] === 11) {
-        openEmptyCells(playingField, playingCell, x, y);
+        if (playingCell[x][y] !== 10) {
+          if (playingCell[x][y] !== 1) {
+            addFlag(ctx, playingCell, x, y, flags);
+          } else {
+            removeFlag(ctx, playingCell, x, y, flags);
+          }
+        }
       }
 
+      if (event.type === 'click') {
+        if (playingField[x][y] === 9) {
+          canvas.removeEventListener('click', clickToHandler);
+          canvas.removeEventListener('mousedown', clickToWorriedSmile);
+          canvas.removeEventListener('mouseup', clickToHappySmile);
+          canvas.removeEventListener('contextmenu', clickToHandler);
+        }
 
-      openCell(ctx, playingField, playingCell);
-      console.log('playingCell', playingCell);
-    })
+        clickToCanvas(ctx, btnStartNewGame, playingField, playingCell, x, y, gameTimer);
+        checkOpenCell(playingCell, body);
+      }
+    }
 
-    console.log('playingField', playingField);
-    console.log('playingCell', playingCell);
+    canvas.addEventListener('click', clickToHandler);
+    canvas.addEventListener('mousedown', clickToWorriedSmile);
+    canvas.addEventListener('mouseup', clickToHappySmile);
+    canvas.addEventListener('contextmenu', clickToHandler);
+
+    if (btnStartNewGame && gameTimer) {
+      btnStartNewGame.addEventListener('click', () => {
+        resetGame(
+          canvas,
+          ctx,
+          btnStartNewGame,
+          playingField,
+          playingCell,
+          gameTimer,
+          clickToHandler,
+          clickToWorriedSmile,
+          clickToHappySmile
+        );
+      })
+    }
+
+    if (body && gameTimer) {
+      body.addEventListener('click', (event) => {
+        const targetElement = event.target as HTMLElement
+
+        if (targetElement.classList.contains('btn_newGame')) {
+          resetGame(
+            canvas,
+            ctx,
+            btnStartNewGame,
+            playingField,
+            playingCell,
+            gameTimer,
+            clickToHandler,
+            clickToWorriedSmile,
+            clickToHappySmile
+          );
+          removeWindowWin(body);
+        }
+      })
+    }
   }
 }
 
+function resetGame(
+  canvas: HTMLCanvasElement | null,
+  context: CanvasRenderingContext2D | null,
+  btnStartNewGame: Element | null,
+  arrField: number[][],
+  arrCell: number[][],
+  gameTimer: Element | null,
+  clickToHandler: (event: MouseEvent) => void,
+  clickToWorriedSmile: () => void,
+  clickToHappySmile: () => void
+): void {
+  if (canvas && gameTimer) {
+    resetGameStepCounter();
+    newGame(context, btnStartNewGame, arrField, arrCell);
+    stopTimer(timerId);
+    resetFlags(flags);
+
+    canvas.addEventListener('click', clickToHandler);
+    canvas.addEventListener('mousedown', clickToWorriedSmile);
+    canvas.addEventListener('mouseup', clickToHappySmile);
+    canvas.addEventListener('contextmenu', clickToHandler);
+
+    gameTimer.textContent = '000';
+    console.log('reset Game');
+  }
+}
 
 //      (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y)
 // (X) [01, 09, 09, 02, 01, 01, 11, 11, 11, 11]

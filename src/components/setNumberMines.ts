@@ -1,12 +1,12 @@
 const colorOfNumbers = [
-  "#0000FF", // синяя
-  "#008000", // зелёная
-  "#FF0000", // красная
-  "#00008B", // тёмно-синяя
-  "#A52A2A", // коричневая
-  "#40E0D0", // бирюзовая
-  "#000000", // чёрная
-  "#FFFFFF"  // белая
+  '#0000FF', // синяя
+  '#008000', // зелёная
+  '#FF0000', // красная
+  '#00008B', // тёмно-синяя
+  '#A52A2A', // коричневая
+  '#40E0D0', // бирюзовая
+  '#000000', // чёрная
+  '#FFFFFF'  // белая
 ];
 
 export function setNumberMines(context: CanvasRenderingContext2D | null, arrField: number[][]): void {
@@ -17,10 +17,10 @@ export function setNumberMines(context: CanvasRenderingContext2D | null, arrFiel
           if (checkMine(arrField, i, j)) {
             context.beginPath();
             context.beginPath();
-            context.fillStyle = "#b3b3b3";
-            context.fillRect(i * 40, j * 40, 40, 40);
+            context.fillStyle = '#9c9c9c';
+            context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
             context.closePath();
-            
+
             context.font = '20px serif';
             context.fillStyle = `${colorOfNumbers[checkMine(arrField, i, j) - 1]}`;
             context.textAlign = 'center';
@@ -46,7 +46,7 @@ function checkMine(arrField: number[][], i: number, j: number): number {
     for (let l = -1; l < 2; l += 1) {
       if (arrField[i + k]) {
         if (arrField[i + k][j + l] === 9) {
-          counter += 1
+          counter += 1;
         }
       }
     }
