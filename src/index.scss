@@ -124,3 +124,62 @@ ul {
   width: 400px;
   height: 400px;
 }
+
+.minesweeper-windowOfWin {
+  position: fixed;
+  z-index: 3;
+  top: 15%;
+  left: 50%;
+  width: 300px;
+  background-color: #b1b1b1;
+  border: 2px solid green;
+  border-radius: 15px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.body-win::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(41, 41, 41, 0.50);
+  z-index: 1;
+}
+
+.windowOfWin__title {
+  font-size: 32px;
+  color: green;
+}
+
+.windowOfWin-moves {
+  font-size: 26px;
+}
+
+.windowOfWin-moves__value {
+  color: green;
+}
+
+.windowOfWin-time {
+  font-size: 26px;
+}
+
+.windowOfWin-time__value {
+  color: green;
+}
+
+.btn_newGame {
+  margin-bottom: 26px;
+  padding: 10px 25px;
+  background-color: #e0dfdf;
+  color: green;
+  border: 1px solid green;
+  border-radius: 10px;
+  transition: background-color .4s;
+}
+
+.btn_newGame:hover {
+  background-color: #fff;
+}

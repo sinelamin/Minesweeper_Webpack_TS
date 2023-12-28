@@ -46,7 +46,7 @@ function checkMine(arrField: number[][], i: number, j: number): number {
     for (let l = -1; l < 2; l += 1) {
       if (arrField[i + k]) {
         if (arrField[i + k][j + l] === 9) {
-          counter += 1
+          counter += 1;
         }
       }
     }

@@ -1,7 +1,4 @@
-export function createInterface() {
-  const body = document.querySelector('body');
-
-
+export function createInterface(body: Element | null): void {
   const container = document.createElement('div');
   container.classList.add('container');
 

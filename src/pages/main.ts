@@ -5,8 +5,12 @@ import { resetGameStepCounter } from "../components/gameStepCounter";
 import { worriedSmile, happySmile } from "../components/changeSmile";
 import { clickToCanvas } from "../components/clickToCanvas";
 import { addFlag, removeFlag, resetFlags } from "../components/Flags";
+import { checkOpenCell, removeWindowWin } from "../components/win";
 
-createInterface();
+const body = document.querySelector('body');
+
+
+createInterface(body);
 
 const canvas: HTMLCanvasElement | null = document.querySelector('.canvas');
 const gameTimer = document.querySelector('.interface-two__timer');
@@ -31,12 +35,11 @@ if (canvas) {
     }
 
     const clickToHandler = (event: MouseEvent) => {
-      event.preventDefault();
-      
       let x = Math.floor(event.offsetX / 40);
       let y = Math.floor(event.offsetY / 40);
 
       if (event.type === 'contextmenu') {
+        event.preventDefault();
 
         if (playingCell[x][y] !== 10) {
           if (playingCell[x][y] !== 1) {
@@ -52,32 +55,82 @@ if (canvas) {
           canvas.removeEventListener('click', clickToHandler);
           canvas.removeEventListener('mousedown', clickToWorriedSmile);
           canvas.removeEventListener('mouseup', clickToHappySmile);
+          canvas.removeEventListener('contextmenu', clickToHandler);
         }
 
-        clickToCanvas(event, ctx, btnStartNewGame, playingField, playingCell, x, y, gameTimer);
+        clickToCanvas(ctx, btnStartNewGame, playingField, playingCell, x, y, gameTimer);
+        checkOpenCell(playingCell, body);
       }
     }
 
     canvas.addEventListener('click', clickToHandler);
     canvas.addEventListener('mousedown', clickToWorriedSmile);
     canvas.addEventListener('mouseup', clickToHappySmile);
-
     canvas.addEventListener('contextmenu', clickToHandler);
 
     if (btnStartNewGame && gameTimer) {
       btnStartNewGame.addEventListener('click', () => {
-        resetGameStepCounter();
-        newGame(ctx, btnStartNewGame, playingField, playingCell);
-        stopTimer(timerId);
-        resetFlags(flags);
-
-        canvas.addEventListener('click', clickToHandler);
-        canvas.addEventListener('mousedown', clickToWorriedSmile);
-        canvas.addEventListener('mouseup', clickToHappySmile);
-
-        gameTimer.textContent = '000';
+        resetGame(
+          canvas,
+          ctx,
+          btnStartNewGame,
+          playingField,
+          playingCell,
+          gameTimer,
+          clickToHandler,
+          clickToWorriedSmile,
+          clickToHappySmile
+        );
       })
     }
+
+    if (body && gameTimer) {
+      body.addEventListener('click', (event) => {
+        const targetElement = event.target as HTMLElement
+
+        if (targetElement.classList.contains('btn_newGame')) {
+          resetGame(
+            canvas,
+            ctx,
+            btnStartNewGame,
+            playingField,
+            playingCell,
+            gameTimer,
+            clickToHandler,
+            clickToWorriedSmile,
+            clickToHappySmile
+          );
+          removeWindowWin(body);
+        }
+      })
+    }
+  }
+}
+
+function resetGame(
+  canvas: HTMLCanvasElement | null,
+  context: CanvasRenderingContext2D | null,
+  btnStartNewGame: Element | null,
+  arrField: number[][],
+  arrCell: number[][],
+  gameTimer: Element | null,
+  clickToHandler: (event: MouseEvent) => void,
+  clickToWorriedSmile: () => void,
+  clickToHappySmile: () => void
+): void {
+  if (canvas && gameTimer) {
+    resetGameStepCounter();
+    newGame(context, btnStartNewGame, arrField, arrCell);
+    stopTimer(timerId);
+    resetFlags(flags);
+
+    canvas.addEventListener('click', clickToHandler);
+    canvas.addEventListener('mousedown', clickToWorriedSmile);
+    canvas.addEventListener('mouseup', clickToHappySmile);
+    canvas.addEventListener('contextmenu', clickToHandler);
+
+    gameTimer.textContent = '000';
+    console.log('reset Game');
   }
 }
 
