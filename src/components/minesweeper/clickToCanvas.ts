@@ -3,7 +3,7 @@ import { openEmptyCells } from "./openEmptyCells";
 import { mineExplosion } from "./mineExplosion";
 import { timerId, startTimer, stopTimer } from "./changeTimer";
 import { gameStepCounter, resetGameStepCounter } from "./gameStepCounter";
-// import { testGame } from "./testGame";
+import { testGame } from "./testGame";
 
 export function clickToCanvas(
   context: CanvasRenderingContext2D | null,

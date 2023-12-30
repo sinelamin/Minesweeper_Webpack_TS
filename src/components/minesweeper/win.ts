@@ -31,7 +31,7 @@ function getWin(body: Element | null): void {
 }
 
 function createWindowWin(body: Element | null): void {
-  body?.classList.add('body-win');
+  body?.classList.add('body-overlay');
 
   windowOfWin.innerHTML = `
     <h3 class="windowOfWin__title">You win!</h3>
@@ -53,6 +53,6 @@ function createWindowWin(body: Element | null): void {
 export function removeWindowWin(body: Element | null): void {
   if (windowOfWin) {
     windowOfWin.remove();
-    body?.classList.remove('body-win');
+    body?.classList.remove('body-overlay');
   }
 }

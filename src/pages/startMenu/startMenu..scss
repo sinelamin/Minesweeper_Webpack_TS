@@ -1,0 +1,180 @@
+.body-overlay::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(41, 41, 41, 0.50);
+  z-index: 1;
+}
+
+.minesweeper-start {
+  width: 500px;
+
+  .minesweeper-top {
+    margin-bottom: 130px;
+  }
+
+  &__img {
+    position: relative;
+    width: 70px;
+    top: -15px;
+    left: 145px;
+  }
+
+  .img__two {
+    width: 40px;
+    top: -125px;
+    left: 30px;
+    transform: rotateZ(45deg);
+  }
+
+  .img__tree {
+    width: 30px;
+    top: -30px;
+    left: -180px;
+    transform: rotateZ(140deg);
+  }
+
+  &__title {
+    margin: 70px auto 0;
+    width: 350px;
+    text-align: left;
+    color: rgb(0, 128, 0);
+    font-size: 72px;
+    line-height: 55%;
+  }
+
+  &__subtitle {
+    display: block;
+    margin-left: 50px;
+    font-size: 52px;
+    color: #000;
+  }
+
+  .minesweeper-menu {
+    margin: 0 auto;
+    width: 70%;
+  }
+
+  .menu-list__item {
+    margin-bottom: 50px;
+    padding: 30px 50px;
+    font-size: 34px;
+    font-weight: 600;
+    border: 1px solid green;
+    border-radius: 10px;
+    color: green;
+    background-color: #fff;
+    transition: background-color, transform .4s;
+  }
+
+  .menu-list__item:hover {
+    background-color: rgb(197, 234, 197);
+    border: 1px solid rgb(197, 234, 197);
+    transform: scale(1.05);
+  }
+}
+
+.minesweeper-options,
+.minesweeper-about {
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 600px;
+  background-color: #fff;
+  border: 2px solid green;
+  border-radius: 15px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  .options-title,
+.about-title {
+  margin-bottom: 100px;
+  font-size: 66px;
+}
+
+.options-list {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 300px;
+}
+
+.options-list__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.options-list__title {
+  font-size: 42px;
+  color: green;
+}
+
+.options-list__radio {
+  display: none;
+}
+
+.radio-custom {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid green;
+}
+
+.radio-custom__dot {
+  position: relative;
+  top: 50%;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  transform: translateY(-50%);
+}
+
+.options-list__radio:checked + .radio-custom > .radio-custom__dot {
+  background-color: green;
+}
+
+.minesweeper-close {
+  position: relative;
+  display: block;
+  top: -76%;
+  left: 89%;
+  width: 50px;
+  height: 50px;
+}
+
+.minesweeper-close__line {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 10px;
+  background-color: green;
+}
+
+.line__one {
+  transform: translateY(5px) rotateZ(45deg);
+}
+.line__two {
+  transform: translateY(-5px) rotateZ(-45deg);
+}
+
+.about-descr {
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 32px;
+  color: green;
+}
+
+.about__close {
+  top: -60%;
+}
+}
