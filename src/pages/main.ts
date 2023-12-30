@@ -5,16 +5,10 @@ import page from 'page';
 
 const home = () => {
   startPage();
-  window.addEventListener('resize', () => {
-    location.reload(); // обновлние страницы для динамической адаптивности
-  });
 };
 
 const minesweeper = () => {
   minesweeperPage();
-  window.addEventListener('resize', () => {
-    location.reload();
-  });
 };
 
 // Определение маршрутов

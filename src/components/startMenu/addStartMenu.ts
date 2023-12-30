@@ -1,4 +1,4 @@
-const img = require('../../img/mineswepper_start_mine.png');
+const mineImg = require('../../img/mineswepper_start_mine.png');
 
 export function addStartMenu(body: Element | null): void {
   if (body) {
@@ -10,9 +10,9 @@ export function addStartMenu(body: Element | null): void {
             Mine
             <span class="minesweeper-start__subtitle">Sweeper</span>
           </h1>
-          <img class="minesweeper-start__img" src="${img}" alt="mine">
-          <img class="minesweeper-start__img img__two" src="${img}" alt="mine">
-          <img class="minesweeper-start__img img__tree" src="${img}" alt="mine">
+          <img class="minesweeper-start__img" src="${mineImg}" alt="mine">
+          <img class="minesweeper-start__img img__two" src="${mineImg}" alt="mine">
+          <img class="minesweeper-start__img img__tree" src="${mineImg}" alt="mine">
         </div>
         <nav class="minesweeper-menu">
           <ul class="menu-list">

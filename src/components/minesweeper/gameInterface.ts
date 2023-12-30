@@ -1,8 +1,14 @@
+const arrowImg = require('../../img/img_arrow_back.png');
+
 export function createGameInterface(body: Element | null): void {
 
   if (body) {
     body.innerHTML = `
     <div class="container">
+      <a class="minesweeper-link" href="/">
+        <img class="minesweeper-link__img" src="${arrowImg}" alt="arrow for back to starting menu">
+        <span class="minesweeper-link__text">Back to menu</span>
+      </a>
       <div class="minesweeper-game">
         <div class="interface">
           <div class="interface-top">

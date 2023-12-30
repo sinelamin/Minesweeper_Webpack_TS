@@ -58,8 +58,6 @@
     width: 70%;
   }
 
-  .menu-list {}
-
   .menu-list__item {
     margin-bottom: 50px;
     padding: 30px 50px;
@@ -80,7 +78,7 @@
 }
 
 .minesweeper-options,
-.minesweeper-about { //-----
+.minesweeper-about {
   position: fixed;
   z-index: 3;
   top: 50%;
@@ -92,9 +90,8 @@
   border-radius: 15px;
   transform: translate(-50%, -50%);
   text-align: center;
-}
 
-.options-title,
+  .options-title,
 .about-title {
   margin-bottom: 100px;
   font-size: 66px;
@@ -179,4 +176,5 @@
 
 .about__close {
   top: -60%;
+}
 }

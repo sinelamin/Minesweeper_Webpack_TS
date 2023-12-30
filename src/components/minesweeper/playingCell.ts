@@ -8,7 +8,7 @@ export function createPlayingCell(context: CanvasRenderingContext2D | null, arrC
         if (arrCell[i][j] === 0) {
           context.beginPath();
           context.fillStyle = '#8f8f8f';
-          context.strokeStyle = '#fff';
+          context.strokeStyle = 'rgb(197, 234, 197)';
           context.lineWidth = 2;
           context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
           context.strokeRect((i * 40) + 1, (j * 40) + 1, 38, 38);
