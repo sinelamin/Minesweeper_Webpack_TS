@@ -79,7 +79,8 @@
   }
 }
 
-.minesweeper-options {
+.minesweeper-options,
+.minesweeper-about { //-----
   position: fixed;
   z-index: 3;
   top: 50%;
@@ -93,9 +94,10 @@
   text-align: center;
 }
 
-.options-title {
-  font-size: 66px;
+.options-title,
+.about-title {
   margin-bottom: 100px;
+  font-size: 66px;
 }
 
 .options-list {
@@ -144,7 +146,7 @@
   background-color: green;
 }
 
-.minesweeper-options__close {
+.minesweeper-close {
   position: relative;
   display: block;
   top: -76%;
@@ -153,7 +155,7 @@
   height: 50px;
 }
 
-.options-close {
+.minesweeper-close__line {
   position: relative;
   display: block;
   width: 50px;
@@ -166,4 +168,15 @@
 }
 .line__two {
   transform: translateY(-5px) rotateZ(-45deg);
+}
+
+.about-descr {
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 32px;
+  color: green;
+}
+
+.about__close {
+  top: -60%;
 }

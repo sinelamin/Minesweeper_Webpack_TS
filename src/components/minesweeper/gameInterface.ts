@@ -1,6 +1,4 @@
 export function createGameInterface(body: Element | null): void {
-  // const container = document.createElement('div');
-  // container.classList.add('container');
 
   if (body) {
     body.innerHTML = `
@@ -25,17 +23,5 @@ export function createGameInterface(body: Element | null): void {
       </div>
     </div>
   `;
-
-    // body.append(container);
   }
 }
-
-// <div class="minesweeper-top">
-// <nav class="menu">
-//   <ul class="menu-list">
-//     <li class="menu-list__item">Game</li>
-//     <li class="menu-list__item">Options</li>
-//     <li class="menu-list__item">Help</li>
-//   </ul>
-// </nav>
-// </div>
