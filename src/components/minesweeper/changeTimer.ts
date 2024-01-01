@@ -17,3 +17,9 @@ export function stopTimer(id: NodeJS.Timeout): void {
   clearInterval(id);
   counterSeconds = 0;
 }
+
+export function resetTimer(timer: Element | null): void {
+  if (timer) {
+    timer.textContent = '000';
+  }
+}

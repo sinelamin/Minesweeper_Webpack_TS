@@ -1,15 +1,21 @@
+import { getDifficultyLevel } from "./difficultyLevel";
+import { getSizeCell, calcSizeFromPct } from "./sizeCell";
+
 export function createMineList(arrField: number[][]): void {
+  const difficultyLevel = getDifficultyLevel();
   let randomNumderX = 0;
   let randomNumderY = 0;
 
-  for (let i = 0; i < 10; i += 1) {
-    randomNumderX = getRandomInt(0, 10);
-    randomNumderY = getRandomInt(0, 10);
+  if (difficultyLevel) {
+    for (let i = 0; i < difficultyLevel[1]; i += 1) {
+      randomNumderX = getRandomInt(0, difficultyLevel[0]);
+      randomNumderY = getRandomInt(0, difficultyLevel[0]);
 
-    if (arrField[randomNumderX][randomNumderY] !== 9) {
-      arrField[randomNumderX][randomNumderY] = 9;
-    } else {
-      i -= 1;
+      if (arrField[randomNumderX][randomNumderY] !== 9) {
+        arrField[randomNumderX][randomNumderY] = 9;
+      } else {
+        i -= 1;
+      }
     }
   }
 }
@@ -34,45 +40,47 @@ export function mineConstructor(
   i: number,
   j: number,
   color: string
-  ): void {
-  if (context) {
+): void {
+  const sizeCell = getSizeCell();
+
+  if (context && sizeCell) {
     context.beginPath();
     context.fillStyle = color;
-    context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
+    context.fillRect((i * sizeCell) + 1, (j * sizeCell) + 1, sizeCell - 2, sizeCell - 2);
     context.closePath();
 
     context.beginPath();
     context.fillStyle = '#000';
     context.strokeStyle = '#000';
-    context.arc((i * 40) + 22, (j * 40) + 22, 10, 0, Math.PI * 2);
+    context.arc((i * sizeCell) + calcSizeFromPct(55, sizeCell), (j * sizeCell) + calcSizeFromPct(55, sizeCell), sizeCell / 4 , 0, Math.PI * 2);
     context.fill();
     context.stroke();
     context.closePath();
 
     context.beginPath();
     context.lineWidth = 2;
-    context.moveTo((i * 40) + 12, (j * 40) + 12);
-    context.lineTo((i * 40) + 32, (j * 40) + 32);
+    context.moveTo((i * sizeCell) + calcSizeFromPct(30, sizeCell), (j * sizeCell) + calcSizeFromPct(30, sizeCell)); // 73
+    context.lineTo((i * sizeCell) + calcSizeFromPct(80, sizeCell), (j * sizeCell) + calcSizeFromPct(80, sizeCell)); // 72
     context.stroke();
-    context.moveTo((i * 40) + 32, (j * 40) + 12);
-    context.lineTo((i * 40) + 12, (j * 40) + 32);
+    context.moveTo((i * sizeCell) + calcSizeFromPct(80, sizeCell), (j * sizeCell) + calcSizeFromPct(30, sizeCell)); // 72 / 73
+    context.lineTo((i * sizeCell) + calcSizeFromPct(30, sizeCell), (j * sizeCell) + calcSizeFromPct(80, sizeCell)); // 73 / 72
     context.stroke();
     context.closePath();
 
     context.beginPath();
     context.lineWidth = 3;
-    context.moveTo((i * 40) + 22, (j * 40) + 7);
-    context.lineTo((i * 40) + 22, (j * 40) + 37);
+    context.moveTo((i * sizeCell) + calcSizeFromPct(55, sizeCell), (j * sizeCell) + calcSizeFromPct(17, sizeCell));
+    context.lineTo((i * sizeCell) + calcSizeFromPct(55, sizeCell), (j * sizeCell) + calcSizeFromPct(92.5, sizeCell));
     context.stroke();
-    context.moveTo((i * 40) + 7, (j * 40) + 22);
-    context.lineTo((i * 40) + 37, (j * 40) + 22);
+    context.moveTo((i * sizeCell) + calcSizeFromPct(17, sizeCell), (j * sizeCell) + calcSizeFromPct(55, sizeCell));
+    context.lineTo((i * sizeCell) + calcSizeFromPct(92.5, sizeCell), (j * sizeCell) + calcSizeFromPct(55, sizeCell));
     context.stroke();
     context.closePath();
 
     context.beginPath();
     context.fillStyle = '#fff';
     context.strokeStyle = '#fff';
-    context.arc((i * 40) + 17, (j * 40) + 18, 1, 0, Math.PI * 2);
+    context.arc((i * sizeCell) + calcSizeFromPct(42.5, sizeCell), (j * sizeCell) + calcSizeFromPct(45, sizeCell), 1, 0, Math.PI * 2);
     context.fill();
     context.stroke();
     context.closePath();
@@ -83,15 +91,17 @@ export function mineDeactive(
   context: CanvasRenderingContext2D | null,
   i: number,
   j: number
-):void {
-  if (context) {
+): void {
+  const sizeCell = getSizeCell();
+
+  if (context && sizeCell) {
     context.beginPath();
     context.strokeStyle = 'red';
     context.lineWidth = 1;
-    context.moveTo((i * 40) + 5, (j * 40) + 5);
-    context.lineTo((i * 40) + 35, (j * 40) + 35);
-    context.moveTo((i * 40) + 35, (j * 40) + 5);
-    context.lineTo((i * 40) + 5, (j * 40) + 35);
+    context.moveTo((i * sizeCell) + calcSizeFromPct(12.5, sizeCell), (j * sizeCell) + calcSizeFromPct(12.5, sizeCell));
+    context.lineTo((i * sizeCell) + calcSizeFromPct(87.5, sizeCell), (j * sizeCell) + calcSizeFromPct(87.5, sizeCell));
+    context.moveTo((i * sizeCell) + calcSizeFromPct(87.5, sizeCell), (j * sizeCell) + calcSizeFromPct(12.5, sizeCell));
+    context.lineTo((i * sizeCell) + calcSizeFromPct(12.5, sizeCell), (j * sizeCell) + calcSizeFromPct(87.5, sizeCell));
     context.stroke();
     context.closePath();
   }

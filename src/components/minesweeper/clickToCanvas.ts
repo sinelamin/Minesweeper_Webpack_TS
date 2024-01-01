@@ -6,6 +6,7 @@ import { gameStepCounter, resetGameStepCounter } from "./gameStepCounter";
 import { testGame } from "./testGame";
 
 export function clickToCanvas(
+  sizeCell: number,
   context: CanvasRenderingContext2D | null,
   btnStartNewGame: Element | null,
   arrField: number[][],
@@ -25,11 +26,11 @@ export function clickToCanvas(
       startTimer(gameTimer);
     }
 
-    openCell(context, arrField, arrCell);
+    openCell(sizeCell, context, arrField, arrCell);
     // testGame(context, arrField);
 
     if (arrField[x][y] === 9) {
-      mineExplosion(context, arrField, arrCell, x, y, btnStartNewGame);
+      mineExplosion(sizeCell, context, arrField, arrCell, x, y, btnStartNewGame);
       stopTimer(timerId);
       resetGameStepCounter();
     }

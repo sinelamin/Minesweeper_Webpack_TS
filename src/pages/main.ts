@@ -1,5 +1,5 @@
 import { startPage } from './startMenu/startMenu';
-import { minesweeperPage } from './minesweeperPage/minesweeper'; 
+import { minesweeperPage } from './minesweeperPage/minesweeper';
 
 import page from 'page';
 

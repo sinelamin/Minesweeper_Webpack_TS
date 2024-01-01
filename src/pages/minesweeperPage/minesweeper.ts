@@ -1,15 +1,18 @@
 import { createGameInterface } from "../../components/minesweeper/gameInterface";
 import { newGame } from "../../components/minesweeper/newGame";
-import { timerId, stopTimer } from "../../components/minesweeper/changeTimer";
+import { timerId, stopTimer, resetTimer } from "../../components/minesweeper/changeTimer";
 import { resetGameStepCounter } from "../../components/minesweeper/gameStepCounter";
 import { worriedSmile, happySmile } from "../../components/minesweeper/changeSmile";
 import { clickToCanvas } from "../../components/minesweeper/clickToCanvas";
 import { addFlag, removeFlag, resetFlags } from "../../components/minesweeper/Flags";
 import { checkOpenCell, removeWindowWin } from "../../components/minesweeper/win";
+import { getDifficultyLevel } from "../../components/minesweeper/difficultyLevel";
+import { getSizeCell } from "../../components/minesweeper/sizeCell";
+
+// (easy: 10x10 - 10 mine, medium: 15x15 - 45 mine, hard: 25x25 - 99 mine)
 
 export function minesweeperPage() {
   const body = document.querySelector('body');
-
 
   createGameInterface(body);
 
@@ -17,8 +20,29 @@ export function minesweeperPage() {
   const gameTimer = document.querySelector('.interface-two__timer');
   const flags = document.querySelector('.interface-one__flags');
   const btnStartNewGame = document.querySelector('.interface-one__smile');
+  const interfaceBody = document.querySelector('.interface-body');
 
-  if (canvas) {
+  const canvasElem = canvas as HTMLCanvasElement;
+  const interfaceBodyElem = interfaceBody as HTMLElement;
+  const difficultyLevel = getDifficultyLevel();
+  const sizeCell = getSizeCell();
+
+  let counterFlags = 10;
+  let countMins = 10;
+
+  if (difficultyLevel && sizeCell) {
+    canvasElem.width = difficultyLevel[0] * sizeCell;
+    canvasElem.height = difficultyLevel[0] * sizeCell;
+    canvasElem.style.width = `${difficultyLevel[0] * sizeCell}px`;
+    canvasElem.style.height = `${difficultyLevel[0] * sizeCell}px`;
+
+    interfaceBodyElem.style.height = `${(difficultyLevel[0] * sizeCell) + 7}px`;
+
+    countMins = difficultyLevel[1];
+    counterFlags = countMins;
+  }
+
+  if (canvas && sizeCell) {
     const ctx = canvas.getContext('2d');
 
     if (ctx) {
@@ -26,6 +50,7 @@ export function minesweeperPage() {
       let playingCell: number[][] = [];
 
       newGame(ctx, btnStartNewGame, playingField, playingCell);
+      resetFlags(countMins, flags); // **
 
       const clickToWorriedSmile = () => {
         worriedSmile(btnStartNewGame);
@@ -36,17 +61,23 @@ export function minesweeperPage() {
       }
 
       const clickToHandler = (event: MouseEvent) => {
-        let x = Math.floor(event.offsetX / 40);
-        let y = Math.floor(event.offsetY / 40);
+        let x = Math.floor(event.offsetX / sizeCell);
+        let y = Math.floor(event.offsetY / sizeCell);
 
         if (event.type === 'contextmenu') {
           event.preventDefault();
 
           if (playingCell[x][y] !== 10) {
             if (playingCell[x][y] !== 1) {
-              addFlag(ctx, playingCell, x, y, flags);
+              if (counterFlags > 0) {
+                counterFlags -= 1;
+                addFlag(counterFlags, ctx, playingCell, x, y, flags); //***
+              }
             } else {
-              removeFlag(ctx, playingCell, x, y, flags);
+              if (counterFlags < countMins) {
+                counterFlags += 1;
+                removeFlag(counterFlags, ctx, playingCell, x, y, flags);
+              }
             }
           }
         }
@@ -59,7 +90,16 @@ export function minesweeperPage() {
             canvas.removeEventListener('contextmenu', clickToHandler);
           }
 
-          clickToCanvas(ctx, btnStartNewGame, playingField, playingCell, x, y, gameTimer);
+          clickToCanvas(
+            sizeCell,
+            ctx,
+            btnStartNewGame,
+            playingField,
+            playingCell,
+            x,
+            y,
+            gameTimer
+          );
           checkOpenCell(playingCell, body);
         }
       }
@@ -123,27 +163,14 @@ export function minesweeperPage() {
       resetGameStepCounter();
       newGame(context, btnStartNewGame, arrField, arrCell);
       stopTimer(timerId);
-      resetFlags(flags);
+      resetFlags(countMins, flags); // **
 
       canvas.addEventListener('click', clickToHandler);
       canvas.addEventListener('mousedown', clickToWorriedSmile);
       canvas.addEventListener('mouseup', clickToHappySmile);
       canvas.addEventListener('contextmenu', clickToHandler);
 
-      gameTimer.textContent = '000';
-      console.log('reset Game');
+      resetTimer(gameTimer);
     }
   }
 }
-
-//      (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y) (Y)
-// (X) [01, 09, 09, 02, 01, 01, 11, 11, 11, 11]
-// (X) [01, 02, 02, 02, 09, 02, 01, 01, 11, 11]
-// (X) [11, 11, 11, 01, 01, 02, 09, 01, 11, 11]
-// (X) [11, 11, 11, 11, 11, 01, 01, 01, 01, 01]
-// (X) [01, 01, 11, 11, 11, 11, 11, 01, 02, 09]
-// (X) [09, 01, 11, 11, 11, 11, 11, 01, 09, 02]
-// (X) [01, 01, 11, 11, 11, 01, 01, 02, 01, 01]
-// (X) [11, 11, 11, 01, 01, 02, 09, 01, 11, 11]
-// (X) [11, 11, 11, 02, 09, 03, 01, 01, 11, 11]
-// (X) [11, 11, 11, 02, 09, 02, 11, 11, 11, 11]
