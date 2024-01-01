@@ -1,3 +1,6 @@
+import { getDifficultyLevel } from "./difficultyLevel";
+import { getSizeCell } from "./sizeCell";
+
 const colorOfNumbers = [
   '#0000FF', // синяя
   '#008000', // зелёная
@@ -10,29 +13,34 @@ const colorOfNumbers = [
 ];
 
 export function setNumberMines(context: CanvasRenderingContext2D | null, arrField: number[][]): void {
-  for (let i = 0; i < 10; i += 1) {
-    for (let j = 0; j < 10; j += 1) {
-      if (context) {
-        if (arrField[i][j] !== 9) {
-          if (checkMine(arrField, i, j)) {
-            context.beginPath();
-            context.beginPath();
-            context.fillStyle = '#9c9c9c';
-            context.fillRect((i * 40) + 1, (j * 40) + 1, 38, 38);
-            context.closePath();
+  const difficultyLevel = getDifficultyLevel();
+  const sizeCell = getSizeCell();
 
-            context.font = '20px serif';
-            context.fillStyle = `${colorOfNumbers[checkMine(arrField, i, j) - 1]}`;
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.fillText(`${checkMine(arrField, i, j)}`, (i * 40) + 20, (j * 40) + 20);
-            context.closePath();
+  if (difficultyLevel) {
+    for (let i = 0; i < difficultyLevel[0]; i += 1) {
+      for (let j = 0; j < difficultyLevel[0]; j += 1) {
+        if (context && sizeCell) {
+          if (arrField[i][j] !== 9) {
+            if (checkMine(arrField, i, j)) {
+              context.beginPath();
+              context.beginPath();
+              context.fillStyle = '#9c9c9c';
+              context.fillRect((i * sizeCell) + 1, (j * sizeCell) + 1, sizeCell - 2, sizeCell - 2);
+              context.closePath();
 
-            arrField[i][j] = checkMine(arrField, i, j);
-          } else {
-            arrField[i][j] = 11;
+              context.font = '20px serif';
+              context.fillStyle = `${colorOfNumbers[checkMine(arrField, i, j) - 1]}`;
+              context.textAlign = 'center';
+              context.textBaseline = 'middle';
+              context.fillText(`${checkMine(arrField, i, j)}`, (i * sizeCell) + (sizeCell / 2), (j * sizeCell) + (sizeCell / 2));
+              context.closePath();
+
+              arrField[i][j] = checkMine(arrField, i, j);
+            } else {
+              arrField[i][j] = 11;
+            }
+
           }
-
         }
       }
     }

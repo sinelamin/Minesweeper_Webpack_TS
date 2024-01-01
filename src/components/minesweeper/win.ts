@@ -1,6 +1,7 @@
 import { timerId, stopTimer } from "./changeTimer";
 import { gameStepCounter } from "./gameStepCounter";
 import { counterSeconds } from "./changeTimer";
+import { getDifficultyLevel } from "./difficultyLevel";
 
 const windowOfWin = document.createElement('div');
 let counterOpenCells = 0;
@@ -10,8 +11,8 @@ windowOfWin.classList.add('minesweeper-windowOfWin');
 export function checkOpenCell(arrCell: number[][], body: Element | null): void {
   let openCells = 0;
 
-  for (let i = 0; i < 10; i += 1) {
-    for (let j = 0; j < 10; j += 1) {
+  for (let i = 0; i < arrCell.length; i += 1) {
+    for (let j = 0; j < arrCell.length; j += 1) {
       if (arrCell[i][j] === 10) {
         openCells += 1;
       }
@@ -25,8 +26,14 @@ export function checkOpenCell(arrCell: number[][], body: Element | null): void {
 }
 
 function getWin(body: Element | null): void {
-  if (counterOpenCells === 90) {
-    createWindowWin(body);
+  const difficultyLevel = getDifficultyLevel();
+
+  if (difficultyLevel) {
+    const conditionForVictory = (Math.pow(difficultyLevel[0], 2)) - difficultyLevel[1];
+
+    if (counterOpenCells === conditionForVictory) {
+      createWindowWin(body);
+    }
   }
 }
 

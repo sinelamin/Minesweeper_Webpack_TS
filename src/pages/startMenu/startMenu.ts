@@ -2,10 +2,10 @@ import { addStartMenu } from "../../components/startMenu/addStartMenu";
 import { activOptions, addOptions, removeOptions } from "../../components/startMenu/menuOptions";
 import { activAboutApp, addAbout, removeAbout } from "../../components/startMenu/menuAboutApp";
 
+export let difficulty: string = 'easy';
+
 export function startPage() {
   const body = document.querySelector('body');
-
-  let difficulty: string;
 
   addStartMenu(body);
 
@@ -16,21 +16,19 @@ export function startPage() {
   options?.addEventListener('click', () => {
     addOptions(startMinesweeperPage, body);
 
-    if (difficulty) {
-      const difficultyValue = document.querySelectorAll('.options-list__radio');
+    const difficultyElem = document.querySelectorAll('.options-list__radio');
 
-      difficultyValue.forEach(item => {
-        const itemElement = item as HTMLInputElement;
+    difficultyElem.forEach(item => {
+      const itemElement = item as HTMLInputElement;
 
-        if (itemElement.checked) {
-          itemElement.checked = false;
-        }
+      if (itemElement.checked) {
+        itemElement.checked = false;
+      }
 
-        if (itemElement.value === difficulty) {
-          itemElement.checked = true;
-        }
-      })
-    }
+      if (itemElement.value === difficulty) {
+        itemElement.checked = true;
+      }
+    })
   });
 
   aboutApp?.addEventListener('click', () => {
@@ -52,7 +50,6 @@ export function startPage() {
     if (targetElem.classList.contains('options-list__radio')) {
       const inputElement = targetElem as HTMLInputElement;
       difficulty = inputElement.value;
-      console.log('difficulty', difficulty);
     }
   })
 }

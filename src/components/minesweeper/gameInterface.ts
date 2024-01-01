@@ -7,7 +7,7 @@ export function createGameInterface(body: Element | null): void {
     <div class="container">
       <a class="minesweeper-link" href="/">
         <img class="minesweeper-link__img" src="${arrowImg}" alt="arrow for back to starting menu">
-        <span class="minesweeper-link__text">Back to menu</span>
+        <span class="minesweeper-link__text">Back</span>
       </a>
       <div class="minesweeper-game">
         <div class="interface">
@@ -23,7 +23,7 @@ export function createGameInterface(body: Element | null): void {
             </div>
           </div>
           <div class="interface-body">
-            <canvas class="canvas" width="400" height="400"></canvas>
+            <canvas class="canvas"></canvas>
           </div>
         </div>
       </div>
