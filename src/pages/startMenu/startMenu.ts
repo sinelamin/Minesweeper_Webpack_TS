@@ -25,8 +25,15 @@ export function startPage() {
         itemElement.checked = false;
       }
 
-      if (itemElement.value === difficulty) {
-        itemElement.checked = true;
+      if(localStorage.getItem('difficulty')) {
+        if (itemElement.value === localStorage.getItem('difficulty')) {
+          itemElement.checked = true;
+        }
+      } else {
+        console.log(difficulty);
+        if (itemElement.value === difficulty) {
+          itemElement.checked = true;
+        }
       }
     })
   });
@@ -50,6 +57,7 @@ export function startPage() {
     if (targetElem.classList.contains('options-list__radio')) {
       const inputElement = targetElem as HTMLInputElement;
       difficulty = inputElement.value;
+      localStorage.setItem('difficulty', difficulty);
     }
   })
 }
