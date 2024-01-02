@@ -13,9 +13,15 @@ export function getSizeCell(): number | undefined {
     hard: 30 
   }
   for (let key in sizeCellObj) {
-    
-    if (key === difficulty) {
-      return sizeCellObj[key];
+
+    if (localStorage.getItem('difficulty')) {
+      if (key === localStorage.getItem('difficulty')) {
+        return sizeCellObj[key];
+      }
+    } else {
+      if (key === difficulty) {
+        return sizeCellObj[key];
+      }
     }
   }
 

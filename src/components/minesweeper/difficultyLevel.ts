@@ -1,7 +1,6 @@
 import { difficulty } from "../../pages/startMenu/startMenu";
 
 export function getDifficultyLevel(): number[] | undefined {
-
   interface DifficultyObject {
     [key: string]: number[];
   }
@@ -13,8 +12,14 @@ export function getDifficultyLevel(): number[] | undefined {
     hard: [25, 99],
   }
   for (let key in difficultyObj) {
-    if (key === difficulty) {
-      return difficultyObj[key];
+    if (localStorage.getItem('difficulty')) {
+      if (key === localStorage.getItem('difficulty')) {
+        return difficultyObj[key];
+      }
+    } else {
+      if (key === difficulty) {
+        return difficultyObj[key];
+      }
     }
   }
 
