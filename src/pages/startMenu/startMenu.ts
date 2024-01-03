@@ -1,6 +1,8 @@
 import { addStartMenu } from "../../components/startMenu/addStartMenu";
 import { activOptions, addOptions, removeOptions } from "../../components/startMenu/menuOptions";
 import { activAboutApp, addAbout, removeAbout } from "../../components/startMenu/menuAboutApp";
+import { setFirstCanvasWidth } from "../../components/startMenu/setFirstCanvasWidth";
+import { startAnimation } from "../../components/startMenu/animationForCanvasElem";
 
 export let difficulty: string = 'easy';
 
@@ -8,6 +10,18 @@ export function startPage() {
   const body = document.querySelector('body');
 
   addStartMenu(body);
+
+  const firstCanvas = document.querySelector('.canvas-first') as HTMLCanvasElement;
+
+  setFirstCanvasWidth(firstCanvas);
+
+  if (firstCanvas) {
+    const ctx = firstCanvas.getContext('2d');
+    const firstCanvasWidth = firstCanvas.width;
+    const firstCanvasHeight = firstCanvas.height;
+
+    startAnimation(ctx, firstCanvasWidth, firstCanvasHeight);
+  }
 
   const startMinesweeperPage = document.querySelector('.minesweeper-start');
   const options = document.querySelector('.menu-options');
@@ -25,7 +39,7 @@ export function startPage() {
         itemElement.checked = false;
       }
 
-      if(localStorage.getItem('difficulty')) {
+      if (localStorage.getItem('difficulty')) {
         if (itemElement.value === localStorage.getItem('difficulty')) {
           itemElement.checked = true;
         }

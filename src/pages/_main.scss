@@ -3,50 +3,52 @@
 
 html {
   box-sizing: border-box;
-}
 
-*,
-*::after,
-*::before {
-  box-sizing: inherit;
-}
+  *,
+  *::after,
+  *::before {
+    box-sizing: inherit;
+  }
 
-body {
-  font-family: 'Inter', sans-serif;
-  width: 100%;
-  background-color: #b3b3b3;
-}
+  body {
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    background-color: #b3b3b3;
+  }
 
-.body-overlay::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(41, 41, 41, 0.50);
-  z-index: 1;
-}
+  .body-overlay::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(41, 41, 41, 0.50);
+    z-index: 1;
+  }
 
-button {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
+  button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
+  ul {
+    list-style: none;
+    padding: 0;
+  }
 
-.container {
-  margin: 0 auto;
-  width: 1220px;
-  text-align: center;
+  .container {
+    margin: 0 auto;
+    padding: 0 10px;
+    max-width: 1220px;
+    height: 100vh;
+    text-align: center;
+  }
 }

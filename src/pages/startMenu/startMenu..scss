@@ -1,6 +1,17 @@
+.canvas-first {
+  position: relative;
+  z-index: 2;
+  top: 5%;
+}
+
 .minesweeper-start {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 5;
   margin: 0 auto;
   width: 500px;
+  transform: translateX(-50%);
 
   .minesweeper-top {
     margin-bottom: 130px;
