@@ -44,6 +44,7 @@ function addElemsForAnimation(
   i: number
 ): void {
   if (context) {
+    context.beginPath();
     context.font = `${arrElem[i][0]}px serif`;
     context.fillStyle = `${colorOfNumbers[arrElem[i][1] - 1]}`;
     context.textAlign = 'center';

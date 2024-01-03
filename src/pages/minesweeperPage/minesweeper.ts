@@ -8,7 +8,7 @@ import { addFlag, removeFlag, resetFlags } from "../../components/minesweeper/Fl
 import { checkOpenCell, removeWindowWin } from "../../components/minesweeper/win";
 import { getDifficultyLevel } from "../../components/minesweeper/difficultyLevel";
 import { getSizeCell } from "../../components/minesweeper/sizeCell";
-import { animationId, stopAnimation } from "../../components/startMenu/createElemsForAnimation";
+import { animationId, stopAnimation } from "../../components/startMenu/animationForCanvasElem";
 
 // (easy: 10x10 - 10 mine, medium: 15x15 - 45 mine, hard: 25x25 - 99 mine)
 

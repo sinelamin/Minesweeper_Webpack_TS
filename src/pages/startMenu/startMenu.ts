@@ -2,7 +2,7 @@ import { addStartMenu } from "../../components/startMenu/addStartMenu";
 import { activOptions, addOptions, removeOptions } from "../../components/startMenu/menuOptions";
 import { activAboutApp, addAbout, removeAbout } from "../../components/startMenu/menuAboutApp";
 import { setFirstCanvasWidth } from "../../components/startMenu/setFirstCanvasWidth";
-import { startAnimation } from "../../components/startMenu/createElemsForAnimation";
+import { startAnimation } from "../../components/startMenu/animationForCanvasElem";
 
 export let difficulty: string = 'easy';
 
