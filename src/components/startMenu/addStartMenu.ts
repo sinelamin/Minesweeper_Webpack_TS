@@ -4,6 +4,7 @@ export function addStartMenu(body: Element | null): void {
   if (body) {
     body.innerHTML = `
     <div class="container">
+      <canvas class="canvas-first" width="" height=""></canvas>
       <div class="minesweeper-start">
         <div class="minesweeper-top">
           <h1 class="minesweeper-start__title">

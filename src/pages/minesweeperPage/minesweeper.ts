@@ -8,6 +8,7 @@ import { addFlag, removeFlag, resetFlags } from "../../components/minesweeper/Fl
 import { checkOpenCell, removeWindowWin } from "../../components/minesweeper/win";
 import { getDifficultyLevel } from "../../components/minesweeper/difficultyLevel";
 import { getSizeCell } from "../../components/minesweeper/sizeCell";
+import { animationId, stopAnimation } from "../../components/startMenu/createElemsForAnimation";
 
 // (easy: 10x10 - 10 mine, medium: 15x15 - 45 mine, hard: 25x25 - 99 mine)
 
@@ -15,6 +16,7 @@ export function minesweeperPage() {
   const body = document.querySelector('body');
 
   createGameInterface(body);
+  stopAnimation(animationId);
 
   const canvas: HTMLCanvasElement | null = document.querySelector('.canvas');
   const gameTimer = document.querySelector('.interface-two__timer');
