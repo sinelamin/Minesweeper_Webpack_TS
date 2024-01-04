@@ -18,11 +18,11 @@ export function newGame(
 
   createPlayingField(context, arrField);
   createMineList(arrField);
+
   clearNumberMines(context, arrField);
   setNumberMines(context, arrField)
-  addMine(context, arrField);
 
-  console.log('arrField', arrField);
+  addMine(context, arrField);
 
   createPlayingCell(context, arrCell);
 }
