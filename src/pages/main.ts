@@ -3,17 +3,9 @@ import { minesweeperPage } from './minesweeperPage/minesweeper';
 
 import page from 'page';
 
-const home = () => {
-  startPage();
-};
-
-const minesweeper = () => {
-  minesweeperPage();
-};
-
 // Определение маршрутов
-page('/', home);
-page('/minesweeper', minesweeper);
+page('/', startPage);
+page('/minesweeper', minesweeperPage);
 
 // // Запуск page.js
 page();

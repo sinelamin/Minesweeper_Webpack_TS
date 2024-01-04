@@ -1,5 +1,8 @@
+import { colorOfNumbers } from "../minesweeper/colorOfNumber";
+
 const sizeElem = 40;
 const arrElem: number[][] = [];
+
 export let animationId: NodeJS.Timeout;
 
 createElemsForAnimation();
@@ -9,17 +12,6 @@ function getRandomInt(min: number, max: number): number {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
-const colorOfNumbers = [
-  '#0000FF', // синяя
-  '#008000', // зелёная
-  '#FF0000', // красная
-  '#00008B', // тёмно-синяя
-  '#A52A2A', // коричневая
-  '#40E0D0', // бирюзовая
-  '#000000', // чёрная
-  '#FFFFFF'  // белая
-];
 
 function createElemsForAnimation(): void {
   for (let i = 0; i < 45; i += 1) {
@@ -90,7 +82,7 @@ export function startAnimation(
   context: CanvasRenderingContext2D | null,
   firstCanvasWidth: number,
   firstCanvasHeight: number
-) {
+): void {
   animationId = setInterval(() => {
     amimationElems(context, arrElem, firstCanvasWidth, firstCanvasHeight);
   }, 16.6)
