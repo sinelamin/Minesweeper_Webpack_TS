@@ -37,8 +37,14 @@ export function removeFlag(
       context.fillStyle = '#8f8f8f';
       context.strokeStyle = 'rgb(197, 234, 197)';
       context.lineWidth = 2;
-      context.fillRect((x * sizeCell) + 1, (y * sizeCell) + 1, sizeCell - 2, sizeCell - 2);
-      context.strokeRect((x * sizeCell) + 1, (y * sizeCell) + 1, sizeCell - 2, sizeCell - 2);
+      context.fillRect(
+        (x * sizeCell) + 1,
+        (y * sizeCell) + 1, sizeCell - 2, sizeCell - 2
+      );
+      context.strokeRect(
+        (x * sizeCell) + 1,
+        (y * sizeCell) + 1, sizeCell - 2, sizeCell - 2
+      );
       context.closePath();
     }
   }
@@ -62,29 +68,65 @@ export function createFlag(
     context.fillStyle = '#8f8f8f';
     context.strokeStyle = 'rgb(197, 234, 197)';
     context.lineWidth = 2;
-    context.fillRect((x * sizeCell) + 1, (y * sizeCell) + 1, sizeCell - 2, sizeCell - 2);
-    context.strokeRect((x * sizeCell) + 1, (y * sizeCell) + 1, sizeCell - 2, sizeCell - 2);
+    context.fillRect(
+      (x * sizeCell) + 1, (y * sizeCell) + 1,
+      sizeCell - 2, sizeCell - 2
+    );
+    context.strokeRect(
+      (x * sizeCell) + 1, (y * sizeCell) + 1,
+      sizeCell - 2, sizeCell - 2
+    );
     context.closePath();
 
     context.beginPath();
     context.strokeStyle = '#000'
     context.lineWidth = 5;
-    context.moveTo((x * sizeCell) + calcSizeFromPct(20, sizeCell), (y * sizeCell) + calcSizeFromPct(80, sizeCell));
-    context.lineTo((x * sizeCell) + calcSizeFromPct(80, sizeCell), (y * sizeCell) + calcSizeFromPct(80, sizeCell));
-    context.moveTo((x * sizeCell) + calcSizeFromPct(30, sizeCell), (y * sizeCell) + calcSizeFromPct(75, sizeCell));
-    context.lineTo((x * sizeCell) + calcSizeFromPct(70, sizeCell), (y * sizeCell) + calcSizeFromPct(75, sizeCell));
-    context.moveTo((x * sizeCell) + calcSizeFromPct(50, sizeCell), (y * sizeCell) + calcSizeFromPct(12.5, sizeCell));
-    context.lineTo((x * sizeCell) + calcSizeFromPct(50, sizeCell), (y * sizeCell) + calcSizeFromPct(75, sizeCell));
+    context.moveTo(
+      (x * sizeCell) + calcSizeFromPct(20, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(80, sizeCell)
+    );
+    context.lineTo(
+      (x * sizeCell) + calcSizeFromPct(80, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(80, sizeCell)
+    );
+    context.moveTo(
+      (x * sizeCell) + calcSizeFromPct(30, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(75, sizeCell)
+    );
+    context.lineTo(
+      (x * sizeCell) + calcSizeFromPct(70, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(75, sizeCell)
+    );
+    context.moveTo(
+      (x * sizeCell) + calcSizeFromPct(50, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(12.5, sizeCell)
+    );
+    context.lineTo(
+      (x * sizeCell) + calcSizeFromPct(50, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(75, sizeCell)
+    );
     context.stroke();
     context.closePath();
 
     context.beginPath();
     context.strokeStyle = 'red';
     context.lineWidth = 1;
-    context.moveTo((x * sizeCell) + calcSizeFromPct(50, sizeCell), (y * sizeCell) + calcSizeFromPct(15, sizeCell));
-    context.lineTo((x * sizeCell) + calcSizeFromPct(50, sizeCell), (y * sizeCell) + calcSizeFromPct(50, sizeCell));
-    context.lineTo((x * sizeCell) + calcSizeFromPct(12.5, sizeCell), (y * sizeCell) + calcSizeFromPct(32.5, sizeCell));
-    context.lineTo((x * sizeCell) + calcSizeFromPct(50, sizeCell), (y * sizeCell) + calcSizeFromPct(15, sizeCell));
+    context.moveTo(
+      (x * sizeCell) + calcSizeFromPct(50, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(15, sizeCell)
+    );
+    context.lineTo(
+      (x * sizeCell) + calcSizeFromPct(50, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(50, sizeCell)
+    );
+    context.lineTo(
+      (x * sizeCell) + calcSizeFromPct(12.5, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(32.5, sizeCell)
+    );
+    context.lineTo(
+      (x * sizeCell) + calcSizeFromPct(50, sizeCell),
+      (y * sizeCell) + calcSizeFromPct(15, sizeCell)
+    );
     context.fillStyle = 'red';
     context.fill();
     context.stroke();

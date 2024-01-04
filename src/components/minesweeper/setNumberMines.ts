@@ -52,7 +52,11 @@ export function setNumberMines(
   }
 }
 
-function checkMine(arrField: number[][], i: number, j: number): number {
+function checkMine(
+  arrField: number[][],
+  i: number,
+  j: number
+): number {
   let counter = 0;
 
   for (let k = -1; k < 2; k += 1) {

@@ -8,7 +8,10 @@ let counterOpenCells = 0;
 
 windowOfWin.classList.add('minesweeper-windowOfWin');
 
-export function checkOpenCell(arrCell: number[][], body: Element | null): void {
+export function checkOpenCell(
+  arrCell: number[][],
+  body: Element | null
+): void {
   let openCells = 0;
 
   for (let i = 0; i < arrCell.length; i += 1) {
