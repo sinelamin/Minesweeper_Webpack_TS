@@ -1,4 +1,4 @@
-export function setFirstCanvasWidth(firstCanvas: HTMLCanvasElement) {
+export function setFirstCanvasWidth(firstCanvas: HTMLCanvasElement): void {
   const container = document.querySelector('.container');
 
   if (container && firstCanvas) {

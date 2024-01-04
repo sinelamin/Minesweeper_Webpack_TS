@@ -2,7 +2,7 @@ import { createPlayingArr } from "./playingArr";
 import { createPlayingField } from "./playingField";
 import { createPlayingCell } from "./playingCell";
 import { createMineList, addMine } from "./mines";
-import { setNumberMines } from "./setNumberMines";
+import { setNumberMines, clearNumberMines } from "./setNumberMines";
 import { happySmile } from "./changeSmile";
 
 export function newGame(
@@ -18,7 +18,10 @@ export function newGame(
 
   createPlayingField(context, arrField);
   createMineList(arrField);
+
+  clearNumberMines(context, arrField);
   setNumberMines(context, arrField)
+
   addMine(context, arrField);
 
   createPlayingCell(context, arrCell);
